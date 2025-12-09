@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="termo"></h1>
+        <p class="descricao"></p>
+        <p class="sinal"></p>
+
+        <div vw class="enabled">
+            <div vw-access-button></div>
+            <div vw-plugin-wrapper> 
+                <div class="vw-plugin-top-wrapper"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        const termos = {
+            filosofia: {
+                nome: "Filosofia", 
+                descricao: "Estudo das questões fundamentais sobre a existência, conhecimento, valores, razão, mente e linguagem, utilizando a argumentação crítica e a análise sistemática.",
+                sinal: "Filosofia"
+            },
+            mundo_ideias: {
+                nome: "Mundo das Ideias", 
+                descricao: "Conceito filosófico desenvolvido por Platão que sugere a existência de um mundo transcendente onde residem as formas perfeitas e imutáveis das coisas que percebemos no mundo físico.",
+                sinal: "Mundo das Ideias"
+            },
+            mundo_sentidos: {
+                nome: "Mundo dos Sentidos", 
+                descricao: "Refere-se ao mundo físico e material que percebemos através dos nossos sentidos, caracterizado pela mudança, imperfeição e transitoriedade.",
+                sinal:"Mundo dos Sentidos"
+            },
+            epistemologia: {
+                nome: "Epistemologia", 
+                descricao: "Ramo da filosofia que estuda o conhecimento, sua natureza, origem, limites e validade, buscando entender como conhecemos, o que podemos conhecer e como justificamos nossas crenças.",
+                sinal: "Epistemologia"
+            },
+            metafisica: {
+                nome: "Metafísica", 
+                descricao: "Ramo da filosofia que investiga a natureza fundamental da realidade, incluindo questões sobre existência, objetos, propriedades, espaço e tempo.",
+                sinal: "Metafísica"
+            },
+            platao: {
+                nome: "Platão", 
+                descricao: "Filósofo grego do século IV a.C., aluno de Sócrates e mestre de Aristóteles, conhecido por suas obras que exploram temas como justiça, política, conhecimento e a natureza da realidade.",
+                sinal: "Platão"
+            },
+            marx: {
+                nome: "Karl Marx", 
+                descricao: "Filósofo, economista e sociólogo alemão do século XIX, conhecido por desenvolver a teoria do materialismo histórico e por suas críticas ao capitalismo.",
+                sinal: "Marx"
+            },
+            nietzsche: {
+                nome: "Friedrich Nietzsche", 
+                descricao: "Filósofo alemão do século XIX, conhecido por suas críticas à moralidade tradicional, à religião e por desenvolver conceitos como o 'super-homem' e a 'vontade de poder'.",
+                sinal: "Nietzsche"
+            },
+            fenomenologia: {
+                nome: "Fenomenologia", 
+                descricao: "Corrente filosófica que estuda a estrutura da experiência consciente e a maneira como os fenômenos se apresentam à consciência, enfatizando a descrição detalhada das experiências.",
+                sinal: "Fenomenologia"
+            },
+            teleologia: {
+                nome: "Teleologia", 
+                descricao: "Teoria filosófica que explica fenômenos em termos de seus fins ou propósitos, sugerindo que tudo tem uma finalidade ou objetivo intrínseco.",
+                sinal: "Teleologia"
+            },
+            dialetica: {
+                nome: "Dialética", 
+                descricao: "Método de argumentação e raciocínio que envolve a contraposição de ideias opostas para chegar a uma síntese, frequentemente associado a filósofos como Hegel e Marx.",
+                sinal: "Dialética"
+            },
+            inconsciente: {
+                nome: "Inconsciente", 
+                descricao: "Conceito psicológico e filosófico que se refere a processos mentais que ocorrem fora da consciência, influenciando pensamentos, sentimentos e comportamentos.",
+                sinal: "Inconsciente"
+            },
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        const termo = params.get("termo");
+
+        if (termo && termos[termo]) {
+            document.querySelector(".termo").innerText = termos[termo].nome;
+            document.querySelector(".descricao").innerText = termos[termo].descricao;
+            document.querySelector(".sinal").innerText = termos[termo].sinal;
+        } else {
+            document.querySelector(".termo").innerText = "Termo não encontrado";
+            document.querySelector(".descricao").innerText = "O termo solicitado não está disponível na base de dados.";
+            throw new Error("Termo não encontrado");
+        }
+
+        // Inicializa o plugin
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+
+        // Aguarda o widget carregar e ativa a tradução
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const button = document.querySelector('div[vw-access-button]');
+                if (button) {
+                    button.click();  // abre o avatar
+                }
+
+                // Aguarda o avatar carregar e inicia a tradução
+                setTimeout(() => {
+                    const tradButton = document.querySelector('.sinal');
+                    if (tradButton) {
+                        tradButton.click(); // ativa a tradução automática
+                    }
+                }, 8000);
+            }, 500);
+        });
+    </script>
+    <link rel="stylesheet" href="styles.css">
+</body>
+</html>

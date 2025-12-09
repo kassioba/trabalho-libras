@@ -1,0 +1,19 @@
+ body {  padding: 0px; position: relative; }
+
+ .container {
+    position: relative;
+ }
+.enabled {
+    position: absolute !important;
+    top: 25vh !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+}
+
+.descricao {
+    text-align: justify;
+}
+
+.sinal {
+    display: none;
+}
